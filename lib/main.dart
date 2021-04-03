@@ -11,6 +11,28 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _people = 0;
+  String _infoText = "Pode Entrar";
+
+  void _changePeople(int delta) {
+    setState(() {
+      _people += delta;
+    });
+
+    _chengeInfoText();
+  }
+
+  void _chengeInfoText() {
+    String text = "Pode Entrar!";
+    if (_people < 0) {
+      text = "Mundo Invertodo?!";
+    } else if (_people > 9) {
+      text = "Lotado!";
+    }
+
+    setState(() {
+      _infoText = text;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +63,7 @@ class _HomeState extends State<Home> {
                     ),
                     onPressed: () {
                       setState(() {
-                        _people++;
+                        _changePeople(1);
                       });
                     },
                   ),
@@ -55,7 +77,7 @@ class _HomeState extends State<Home> {
                     ),
                     onPressed: () {
                       setState(() {
-                        _people--;
+                        _changePeople(-1);
                       });
                     },
                   ),
@@ -63,7 +85,7 @@ class _HomeState extends State<Home> {
               ],
             ),
             Text(
-              "Pode Entrar!",
+              _infoText,
               style: TextStyle(
                   color: Colors.white,
                   fontStyle: FontStyle.italic,
